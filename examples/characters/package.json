@@ -20,7 +20,7 @@
   "homepage": "https://github.com/stevekinney/testing-javascript#readme",
   "devDependencies": {
     "@vitest/ui": "^2.1.1",
-    "vite": "^5.4.5",
+    "vite": "^6.3.5",
     "vitest": "^2.1.1"
   },
   "dependencies": {

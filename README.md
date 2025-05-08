@@ -1,3 +1,8 @@
+Use this URL
+https://frontendmasters.com/courses/testing/simple-tests-exercise/
+
+It's called "Testing Fundamentals"
+
 ## Testing Fundamentals Course
 
 This is a companion repository for the [Testing Fundamentals](https://frontendmasters.com/courses/testing/) course on Frontend Masters.
