@@ -18,12 +18,16 @@ describe('add', () => {
     expect(add('1', '1')).toBe(2);
   });
 
-  it('should get really angry if you the second argument cannot be parsed into a number', () => {
+  it('should get really angry if the first argument cannot be parsed into a number', () => {
+    expect(() => add(2, 'potato')).toThrow('not a number');
+  });
+
+  it('should get really angry if the second argument cannot be parsed into a number', () => {
     expect(() => add('potato', 2)).toThrow('not a number');
   });
 
-  it('should get really angry if the first argument cannot be parsed into a number', () => {
-    expect(() => add(2, 'potato')).toThrow('not a number');
+  it('should throw an error if the first argument is not a number', () => {
+    expect(() => add(NaN, 2)).toThrow('not a number');
   });
 });
 
@@ -39,6 +43,20 @@ describe('subtract', () => {
   it('should accept a negative int and a zero', () => {
     expect(subtract(-2, 0)).toBe(-2);
   });
+
+  it('should accept and subtract all of the numbers if an array is given', () => {
+    expect(subtract([10, 5], 2)).toBe(3);
+  });
+
+  it('should default undefined values to 0', () => {
+    expect(subtract(3)).toBe(3);
+    expect(subtract(undefined, 3)).toBe(-3);
+  });
+
+  it('should default to zero if either argument is null', () => {
+    expect(subtract(3, null)).toBe(3);
+    expect(subtract(null, 3)).toBe(-3);
+  });
 });
 
 describe('multiply', () => {
@@ -53,6 +71,10 @@ describe('multiply', () => {
   it('should multiply a negative number times zero', () => {
     expect(Object.is(multiply(-2, 0), -0)).toBe(true);
   });
+});
+
+it('should return null if dividing by zero', () => {
+  expect(divide(10, 0)).toBe(null);
 });
 
 describe('divide', () => {
