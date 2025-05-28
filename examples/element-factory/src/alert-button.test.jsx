@@ -11,11 +11,22 @@ describe('AlertButton', () => {
   it('should render an alert button', async () => {});
 
   it.only('should trigger an alert', async () => {
-    render(<AlertButton />);
+    const handleSubmit = vi.fn();
+
+    render(<AlertButton onSubmit={handleSubmit} message="Default Message" />);
+
+    // const alertSpy = vi.spyOn(window, 'alert');
+
     const input = screen.getByLabelText('Message');
     const button = screen.getByRole('button', { name: /trigger alert/i });
+
     await act(async () => {
+      await userEvent.clear(input);
       await userEvent.type(input, 'Hello');
+      await userEvent.click(button);
+
+      expect(handleSubmit).toHaveBeenCalled;
+      expect(handleSubmit).toHaveBeenCalledWith('Hello');
     });
   });
 });
