@@ -1,7 +1,8 @@
 import { expect, it, vi, beforeEach, afterEach, describe } from 'vitest';
 import { log } from './log';
+import { sendToServer } from './send-to-server'; // <-- import actual function to assert
 
-const sendMock = vi.mock('./send-to-server', () => ({
+vi.mock('./send-to-server', () => ({
   sendToServer: vi.fn(),
 }));
 
@@ -21,7 +22,7 @@ describe('logger', () => {
       log('Hello World');
 
       expect(logSpy).toHaveBeenCalledWith('Hello World');
-      expect(sendMock.sendToServer).toHaveBeenCalled;
+      expect(sendToServer).not.toHaveBeenCalled(); // production path should not run
     });
   });
 
@@ -34,12 +35,13 @@ describe('logger', () => {
       vi.restoreAllMocks();
     });
 
-    it('should not call console.log in production mode', () => {
+    it('should call sendToServer in production mode', () => {
       const logSpy = vi.spyOn(console, 'log');
 
       log('Hello World');
+
       expect(logSpy).not.toHaveBeenCalled();
-      expect(sendMock.sendToServer).toHaveBeenCalled;
+      expect(sendToServer).toHaveBeenCalledWith('info', 'Hello World');
     });
   });
 });

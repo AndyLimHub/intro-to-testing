@@ -4,7 +4,7 @@ import { sendToServer } from './send-to-server';
 
 /**
  * Log a message to the console in development mode or send it to the server in production mode.
- * @param  {string} message
+ * @param {string} message
  */
 export function log(
   message,
